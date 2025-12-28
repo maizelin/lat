@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>勞工體格健康管理分析系統 - 啟動</title>
+  <script src="https://cdn.jsdelivr.net/npm/fhirclient/build/fhir-client.js"></script>
+  <style>
+    body { font-family: 'Microsoft JhengHei', Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0; padding: 0; height: 100vh; display: flex; align-items: center; justify-content: center; color: white; }
+    .container { text-align: center; background: rgba(255,255,255,0.1); padding: 40px; border-radius: 20px; backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0,0,0,0.3); max-width: 600px; }
+    h1 { font-size: 2.5em; margin-bottom: 10px; }
+    p { font-size: 1.2em; margin-bottom: 30px; opacity: 0.9; }
+    .btn { display: inline-block; padding: 15px 30px; background: white; color: #667eea; font-size: 1.1em; font-weight: bold; border-radius: 50px; text-decoration: none; margin: 10px; transition: 0.3s; }
+    .btn:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+    .quick-test { background: rgba(255,255,255,0.2); color: white; border: 2px solid white; }
+    footer { position: absolute; bottom: 20px; font-size: 0.9em; opacity: 0.8; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>勞工體格健康管理分析系統</h1>
+    <p>基於國健署標準 • 即時分析三高、BMI、代謝症候群、腎功能</p>
+    
+    <a href="javascript:void(0)" class="btn" onclick="startSmartLaunch()">正式啟動（SMART on FHIR）</a>
+    
+    <a href="labour-analysis.html" class="btn quick-test">快速測試（直接查看 10 位勞工報告）</a>
+    
+    <p style="margin-top: 40px; font-size: 0.9em;">
+      目前資料包含 10 位勞工完整體檢紀錄（2025-12-28 上傳）<br>
+      可直接點「快速測試」立即查看分析結果
+    </p>
+  </div>
+
+  <footer>THAS FHIR Sandbox 專用 • 僅供教育與展示用途</footer>
+
+  <script>
+    function startSmartLaunch() {
+      FHIR.oauth2.authorize({
+        client_id: "your_client_id_here",  // 未來正式註冊時填入
+        scope: "launch patient/*.read openid fhirUser",
+        redirect_uri: "labour-analysis.html",
+        iss: "https://thas.mohw.gov.tw/v/r4/fhir"
+      });
+    }
+  </script>
+</body>
+</html>
